@@ -1,0 +1,18 @@
+<div>
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label for="title">Title</label>
+        <input type="text" [(ngModel)]="title" name="title" id="title" required>
+      </div>
+      <div>
+        <label for="desc">Description</label>
+        <input type="text" [(ngModel)]="desc" name="desc" id="desc" required>
+      </div>
+      <div>
+        <label for="dueDate">Due Date</label>
+        <input type="date" [(ngModel)]="dueDate" name="dueDate" id="dueDate" required>
+      </div>
+      <button type="submit">Add Todo</button>
+    </form>
+  </div>
+  

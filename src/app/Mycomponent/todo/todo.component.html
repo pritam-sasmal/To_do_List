@@ -1,0 +1,28 @@
+<div>
+  <h3>Add todo</h3>
+  <app-add-todo (todoAdd)="addtodo($event)"></app-add-todo>
+  <h3>Your todo</h3>
+  <div *ngIf="this.todos.length === 0; else elseBlock" class="no-todos">No Todos to display</div>
+  <ng-template #elseBlock>
+    <div *ngFor="let todo of todos" class="todo-item">
+      <app-todo-item [todo]="todo" (todoDelete)="deleteTodo($event)" (todoEdit)="editTodo($event)" (todoCheckbox)="toggletodo($event)" (todoHistory)="viewHistory($event)"></app-todo-item>
+      <div *ngIf="editingTodo === todo" class="edit-form">
+        <input type="text" [(ngModel)]="editTitle" placeholder="Edit title">
+        <input type="text" [(ngModel)]="editDesc" placeholder="Edit description">
+        <input type="date" [(ngModel)]="editDate" placeholder="Edit description">
+        <button (click)="saveEdit(todo)">Save</button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </ng-template>
+  <button (click)="exportToCSV()" class="export-button">Export to CSV</button>
+
+  <!-- History Modal -->
+  <div *ngIf="selectedTodo" class="history-modal">
+    <h3>History of {{ selectedTodo.title }}</h3>
+    <ul>
+      <li *ngFor="let entry of selectedTodo.history">{{ entry }}</li>
+    </ul>
+    <button (click)="closeHistory()">Close</button>
+  </div>
+</div>
