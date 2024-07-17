@@ -1,13 +1,16 @@
 <div class="todo-item">
-    <input type="checkbox" name="" id="check" (click)="onCheckboxClick(todo)" [checked]="!todo.status">
-    <h3 [ngClass]="{'strike': !todo.status}">{{todo.title}}</h3>
-    <p>{{todo.desc}}</p>
-    <p>{{todo.dueDate}}</p>
-    <div *ngIf="todo.status; else completedBlock" class="in-progress">In Progress</div>
+  <input type="checkbox" name="" id="check" (click)="onCheckboxClick(todo)" [checked]="!todo.status">
+  <h3 [ngClass]="{'strike': !todo.status}">{{todo.title}}</h3>
+  <p>{{todo.desc}}</p>
+  <p>{{todo.dueDate}}</p>
+  <p>{{todo.priority}}</p>
+  <div *ngIf="todo.status; else completedBlock" class="in-progress">In Progress</div>
   <ng-template #completedBlock>
     <div class="completed">Completed</div>
   </ng-template>
+  <div class="todo-buttons">
     <button class="edit-button" (click)="onClickEdit(todo)">Edit</button>
     <button class="delete-button" (click)="onClickdelete(todo)">Delete</button>
     <button class="history-button" (click)="onClickhistory(todo)">History</button>
+  </div>
 </div>

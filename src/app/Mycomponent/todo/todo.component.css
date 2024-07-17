@@ -1,87 +1,102 @@
-/* Main container styling */
+/* General styling */
 div {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Add todo section styling */
 app-add-todo {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 /* Header styling */
 h3 {
-    margin-top:5px;
-    margin-bottom: 10px;
-    font-size: 1.5em;
-    color: #333;
-    text-align: center;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  color: #333;
+  text-align: center;
 }
 
 /* No Todos message styling */
 div[ngIf] {
-    font-size: 1.2em;
-    color: #888;
-    text-align: center;
-    margin-top: 20px;
+  font-size: 1.2em;
+  color: #888;
+  text-align: center;
+  margin-top: 20px;
 }
 
 /* Todo items container styling */
 ng-template {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 /* Individual todo item styling */
+.todo-item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.todo-item:last-of-type {
+  margin-bottom: 15px;
+}
+
 /* Edit form styling */
 .edit-form {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Space between elements */
-    margin-top: 10px; /* Space above the edit form */
-  }
-  
-  .edit-form input[type="text"] {
-    flex-grow: 1; /* Allow inputs to take up remaining space */
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .edit-form button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .edit-form button:first-of-type {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .edit-form button:first-of-type:hover {
-    background-color: #218838;
-  }
-  
-  .edit-form button:last-of-type {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .edit-form button:last-of-type:hover {
-    background-color: #c82333;
-  }
-  /* todo.component.css */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-form input[type="text"] {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-width: calc(50% - 10px);
+}
+
+.edit-form button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-form button:first-of-type {
+  background-color: #28a745;
+  color: white;
+}
+
+.edit-form button:first-of-type:hover {
+  background-color: #218838;
+}
+
+.edit-form button:last-of-type {
+  background-color: #dc3545;
+  color: white;
+}
+
+.edit-form button:last-of-type:hover {
+  background-color: #c82333;
+}
+
+/* Export button styling */
 .export-button {
-  background-color: #4CAF50; /* Green */
+  background-color: #4caf50;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -97,6 +112,8 @@ ng-template {
 .export-button:hover {
   background-color: #45a049;
 }
+
+/* History Modal styling */
 .history-modal {
   position: fixed;
   top: 50%;
@@ -120,4 +137,3 @@ ng-template {
 .history-modal li {
   margin: 5px 0;
 }
-

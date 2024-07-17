@@ -15,8 +15,9 @@ export class AddTodoComponent {
   title!: string;
   desc!: string;
   dueDate!:string;
+  priority!:string;
   onSubmit() {
-    const todo = new Todo(this.title, this.desc, this.dueDate, true); // Use the constructor
+    const todo = new Todo(this.title, this.desc,this.priority, this.dueDate, true); // Use the constructor
     console.log(todo.dueDate);
     this.todoAdd.emit(todo); // Emit the new todo
   }

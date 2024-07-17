@@ -12,47 +12,48 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
-export class TodoComponent {
-  todos!: Todo[];
-  localitem: string | null | undefined;
+export class TodoComponent implements OnInit {
+  todos: Todo[] = [];
   editingTodo: Todo | null = null;
   editTitle: string = '';
   editDesc: string = '';
+  editPriority: string = '';
   editDate: string = '';
   selectedTodo: Todo | null = null;
 
   constructor() {
-    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      this.localitem = localStorage.getItem("todos");
-      if (this.localitem == null) {
-        this.todos = [];
-      } else {
-        this.todos = JSON.parse(this.localitem);
-      }
+    if (typeof localStorage !== 'undefined') {
+      const localTodos = localStorage.getItem('todos');
+      this.todos = localTodos ? JSON.parse(localTodos) : [];
     } else {
-      this.todos = [];
+      this.todos = []; // Fallback if localStorage is not available
     }
   }
 
+  ngOnInit() {
+    
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem('todos', JSON.stringify(this.todos));
+  }
+
   deleteTodo(todo: Todo) {
-    console.log(todo);
     const index = this.todos.indexOf(todo);
-    //todo.addHistory('Deleted');
     this.todos.splice(index, 1);
-    localStorage.setItem("todos", JSON.stringify(this.todos));
+    this.saveToLocalStorage();
   }
 
   addtodo(todo: Todo) {
-    console.log(todo);
-    todo.addHistory('Added');
     this.todos.push(todo);
-    localStorage.setItem("todos", JSON.stringify(this.todos));
+    this.saveToLocalStorage();
   }
 
   toggletodo(todo: Todo) {
     const index = this.todos.indexOf(todo);
     this.todos[index].status = !this.todos[index].status;
-    todo.addHistory(this.todos[index].status ? 'Marked as In-progress' : 'Marked as Completed');
+    const statusAction = this.todos[index].status ? 'Marked as In-progress' : 'Marked as Completed';
+    todo.addHistory(statusAction);
     localStorage.setItem("todos", JSON.stringify(this.todos));
   }
 
@@ -60,19 +61,23 @@ export class TodoComponent {
     this.editingTodo = todo;
     this.editTitle = todo.title;
     this.editDesc = todo.desc;
+    this.editPriority = todo.priority;
     this.editDate = todo.dueDate;
   }
 
-  saveEdit(todo: Todo) {
+  saveEdit() {
     if (this.editingTodo) {
-      this.editingTodo.title = this.editTitle;
-      this.editingTodo.desc = this.editDesc;
-      this.editingTodo.dueDate = this.editDate;
+      const index = this.todos.indexOf(this.editingTodo);
+      this.todos[index].title = this.editTitle;
+      this.todos[index].desc = this.editDesc;
+      this.todos[index].priority = this.editPriority;
+      this.todos[index].dueDate = this.editDate;
       this.editingTodo.addHistory('Edited');
-      localStorage.setItem("todos", JSON.stringify(this.todos));
+      this.saveToLocalStorage();
       this.editingTodo = null;
       this.editTitle = '';
       this.editDesc = '';
+      this.editPriority = '';
       this.editDate = '';
     }
   }
@@ -81,6 +86,7 @@ export class TodoComponent {
     this.editingTodo = null;
     this.editTitle = '';
     this.editDesc = '';
+    this.editPriority = '';
     this.editDate = '';
   }
 
@@ -100,7 +106,7 @@ export class TodoComponent {
 
     const csvHeader = 'Title,Description,Due Date,Status\n';
     const csvData = this.todos.map(todo => {
-      const statusLabel = todo.status == false ? 'Completed' : 'In Progress'; // Convert boolean to string
+      const statusLabel = todo.status ? 'In Progress' : 'Completed';
       return `${todo.title},${todo.desc},${todo.dueDate},${statusLabel}\n`;
     }).join('');
 
